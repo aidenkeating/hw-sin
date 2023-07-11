@@ -1,0 +1,4 @@
+namespace: kc-my-sinatra-app
+resources:
+- ../../base
+- ./ingress.yaml

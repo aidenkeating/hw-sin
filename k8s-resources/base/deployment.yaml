@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: my-sinatra-app
+    app.kubernetes.io/part-of: my-sinatra-app
+  name: my-sinatra-app
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: my-sinatra-app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: my-sinatra-app
+    spec:
+      containers:
+      - command:
+        - bundle
+        - exec
+        - ruby
+        - main.rb
+        image: aidenkeatingkc/my-sinatra-app:main
+        imagePullPolicy: Always
+        name: my-sinatra-app
+        ports:
+        - containerPort: 8080
+          name: web
+        securityContext:
+          runAsUser: 6969
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
